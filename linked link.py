@@ -1,120 +1,138 @@
-# linkedlist(traversal)
+# Singly linked list example
 class Node:
     def __init__(self, data):
         self.data = data
         self.next = None
 
-head = Node(10)
-head.next = Node(20)
-head.next.next = Node(30)
 
-# traversal
-temp = head
-while temp:
-    print(temp.data, end="->")
-    temp = temp.next
-print("NULL")
+class SinglyLinkedList:
+    def __init__(self):
+        self.head = None
 
-# INSERTION (at beginning)
-head = Node(20)
-head.next = Node(30)
+    def insert_beginning(self, data):
+        new_node = Node(data)
+        new_node.next = self.head
+        self.head = new_node
 
-new_node = Node(10)
-new_node.next = head
-head = new_node
+    def insert_end(self, data):
+        new_node = Node(data)
+        if not self.head:
+            self.head = new_node
+            return
+        temp = self.head
+        while temp.next:
+            temp = temp.next
+        temp.next = new_node
 
-temp = head
-while temp:
-    print(temp.data, end="->")
-    temp = temp.next
-print("NULL")
-#insertion (at end)
-class Node:
-    def __init__(self, data):
-        self.data = data
-        self.next = None
+    def delete_by_value(self, key):
+        temp = self.head
+        prev = None
 
-head = Node(10)
-head.next = Node(20)
-new_node = Node(30)
-temp = head
-while temp.next:
-    temp = temp.next
-    temp.next = new_node
+        while temp and temp.data != key:
+            prev = temp
+            temp = temp.next
 
-temp = head
-while temp:
-    print(temp.data, end="->")
-    temp = temp.next
-print("NULL")
-#deletion(by value)
-class Node:
-    def __init__(self, data):
-        self.data = data
-        self.next = None
-head = Node(50)
-head.next = Node(60)
-head.next.next = Node(70)
-key = 60
-temp = head
-prev = None
+        if temp is None:
+            return
+        if prev is None:
+            self.head = temp.next
+        else:
+            prev.next = temp.next
 
-while temp and temp.data != key:
-    prev = temp
-    temp = temp.next
+    def display(self):
+        temp = self.head
+        while temp:
+            print(temp.data, end=" -> ")
+            temp = temp.next
+        print("NULL")
 
-if temp == head:
-    head = head.next
-elif temp:
-    prev.next = temp.next
 
-temp = head
-while temp:
-    print(temp.data, end="->")
-    temp = temp.next
-print("NULL")
-# doubly linked list
+print("Singly linked list")
+sll = SinglyLinkedList()
+sll.insert_end(10)
+sll.insert_end(20)
+sll.insert_end(30)
+sll.display()
+sll.insert_beginning(5)
+sll.display()
+sll.delete_by_value(20)
+sll.display()
+
+
+# Doubly linked list example
 class DNode:
     def __init__(self, data):
         self.data = data
         self.next = None
         self.prev = None
 
+
 class DoublyLinkedList:
     def __init__(self):
         self.head = None
-        
 
-def insert_end(self, data):
-    new_node = DNode(data)
-    if not self.head:
-        self.head = new_node
-        return
-    temp = self.head
-    while temp.next:
-        temp = temp.next
-    temp.next = new_node
-    new_node.prev = temp
+    def insert_end(self, data):
+        new_node = DNode(data)
+        if not self.head:
+            self.head = new_node
+            return
+        temp = self.head
+        while temp.next:
+            temp = temp.next
+        temp.next = new_node
+        new_node.prev = temp
 
-def display(self):
-    temp = self.head
-    while temp:
-        print(temp.data, end="<->")
-        temp = temp.next
-print("NULL")
-
+    def display(self):
+        temp = self.head
+        while temp:
+            print(temp.data, end=" <-> ")
+            temp = temp.next
+        print("NULL")
 
 
+print("\nDoubly linked list")
 dll = DoublyLinkedList()
 dll.insert_end(10)
 dll.insert_end(20)
 dll.insert_end(30)
-
 dll.display()
 
-#circular linked list
-class Node:
-    def __init__(self, data):
-        self.data = data
-        self.next = None
 
+# Circular linked list example
+class CircularLinkedList:
+    def __init__(self):
+        self.head = None
+
+    def insert_end(self, data):
+        new_node = Node(data)
+        if not self.head:
+            self.head = new_node
+            new_node.next = self.head
+            return
+
+        temp = self.head
+        while temp.next != self.head:
+            temp = temp.next
+        temp.next = new_node
+        new_node.next = self.head
+
+    def display(self):
+        if not self.head:
+            print("NULL")
+            return
+
+        temp = self.head
+        while True:
+            print(temp.data, end=" -> ")
+            temp = temp.next
+            if temp == self.head:
+                break
+        print("(back to head)")
+
+
+print("\nCircular linked list")
+cll = CircularLinkedList()
+cll.insert_end(10)
+cll.insert_end(20)
+cll.insert_end(30)
+cll.display()
